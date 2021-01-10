@@ -1,6 +1,7 @@
 import { EventEmitter } from "events"
 
-export default class IndieSocketServer extends EventEmitter {
+
+export class IndieSocketServer extends EventEmitter {
 
 	constructor(server: any) {
 		super()
@@ -11,16 +12,16 @@ export default class IndieSocketServer extends EventEmitter {
 
 }
 
-class IndieSocketClient extends EventEmitter {
+export class IndieSocketClient extends EventEmitter {
 
 	socket: any
 
 	constructor(socket: any) {
-		super() 
+		super()
 		this.socket = socket
-		
+
 		socket.on("message", (message: string) => {
-			const [name, ...data] = JSON.parse(message) 
+			const [name, ...data] = JSON.parse(message)
 			this.emit(name, data)
 		})
 
@@ -34,8 +35,9 @@ class IndieSocketClient extends EventEmitter {
 	}
 
 	// eslint-ignore-next-line
-	send(name: string, ...data: any){
+	send(name: string, ...data: any) {
 		this.socket.emit(JSON.stringify([name, data]))
 	}
 
 }
+
