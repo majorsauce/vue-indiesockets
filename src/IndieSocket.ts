@@ -5,25 +5,26 @@ class Socket {
 
 	ws: WebSocket
 	listeners: Map<string, { vm: unknown; callback: Function }[]> = new Map()
+	connected: boolean = false
 
 	constructor(url: string) {
 		console.log("Trying to connect to " + url)
 
 		this.ws = new WebSocket(url)
 		this.ws.onopen = () => {
-			console.log("Websocket connected")
+			this.connected = true
 		}
 		this.ws.onclose = () => {
-			console.log("Websocket closed")
+			this.connected = false
 		}
 		this.ws.onmessage = (e) => {
+			console.log("Inbound message " + e.data)
 			const [name, ...args] = JSON.parse(e.data)
-			console.log("Inbound message " + name + ": " + JSON.stringify(args))
 			this.listeners.get(name)?.forEach((listener: any) => listener.callback.call(listener.vm, args[0] || args))
-		},
-			this.ws.onerror = (e) => {
-				console.error(e)
-			}
+		}
+		this.ws.onerror = (e) => {
+			console.error(e)
+		}
 	}
 
 	addListener(vm: unknown, key: string, callback: Function) {
@@ -34,13 +35,12 @@ class Socket {
 	// eslint-disable-next-line
 	send(name: string, ...data: any) {
 		this.ws.send(JSON.stringify([name, data]))
+		console.log("Outbound: " + name)
 	}
 
 }
 
 export class IndieSocket {
-
-	components: [] = []
 
 	// eslint-disable-next-line
 	install(Vue: any, url: string) {

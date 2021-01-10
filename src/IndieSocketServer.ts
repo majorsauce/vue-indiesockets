@@ -36,7 +36,8 @@ export class IndieSocketClient extends EventEmitter {
 
 	// eslint-ignore-next-line
 	send(name: string, ...data: any) {
-		this.socket.emit(JSON.stringify([name, data]))
+		this.socket.send(JSON.stringify([name, data]))
+		this.emit("outbound", name, data)
 	}
 
 }

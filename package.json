@@ -1,6 +1,6 @@
 {
 	"name": "vue-indiesockets",
-	"version": "1.0.5",
+	"version": "1.0.7",
 	"description": "A leightweit Websocket-Plugin for vue including the fitting server implementation",
 	"main": "./dist/IndieSocket.js",
 	"repository": {
