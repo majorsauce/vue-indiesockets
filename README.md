@@ -107,12 +107,12 @@ export default {
 	// Add the sockets object to your component and add handlers in there
     sockets: {
         // Custom handler called when the server does client.send("hello", "hello client!")
-		hello(data) {
-			this.message = data;
+        hello(data) {
+            this.message = data;
             // Send something back to the server
-			this.$socket.send("hallo", "Hello Server!")
-		}
-	}
+            this.$socket.send("hallo", "Hello Server!")
+        }
+    }
 };
 </script>
 ```
