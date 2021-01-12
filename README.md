@@ -3,6 +3,7 @@ This plugin is inspired by [vue-socket.io-extended](https://www.npmjs.com/packag
 
 
 <br>
+
 ### About
 
 vue-indiesockets adds WebSocket capabilities to vue directly in vue components.
@@ -11,19 +12,24 @@ It also comes with the fitting backend wrapper for websockets allowing you to in
 On the backend side you have to pass an Websocket instance to the plugin. I developed it using [ws](https://www.npmjs.com/package/ws) but other implementations should work as well. 
 
 <br>
+
 ### Installation
 
 In any node project, not limited to Vue projects
+
 ```
 npm install vue-indiesockets
 ```
 
 <br>
 <br>
+
 ### Usage
 
 <br>
+
 #### Server-Side:
+
 
 ```
 // This is specific to the implementation you want to use
@@ -73,6 +79,7 @@ server.on("_connected", (client: IndieSocketClient) => {
 <br>
 
 **main.ts**
+
 ```
 // main.ts
 import { IndieSocket } from "vue-indiesockets"
@@ -84,6 +91,7 @@ Vue.use(new IndieSocket(), "ws://localhost:40001", {debug: true, autoReconnect: 
 
 <br>
 **cusom component**
+
 ```
 <template>
 	<div>
