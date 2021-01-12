@@ -42,7 +42,7 @@ server.on("_connected", (client: IndieSocketClient) => {
     // Send a message to the client
     client.send("hello", "Hallo Client!")
     // You can also send objects (Using JSON.stringify and JSON.parse internally so functions will be lost)
-    client.send("showInfo", {message: "my info message", color: "green", timeout: 1000}
+    client.send("showInfo", {message: "my info message", color: "green", timeout: 1000})
 
     // Catch all messages using _*. (this gives you the message and the data as parameters)
 	// Does not prevent other handlers to be called, so hello would be called and then _* would be called afterwards with one inbound message
