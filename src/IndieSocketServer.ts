@@ -3,10 +3,14 @@ import { EventEmitter } from "events"
 
 export class IndieSocketServer extends EventEmitter {
 
-	constructor(server: any) {
+	debug: boolean
+
+	constructor(server: any, debug: boolean = false) {
 		super()
+		this.debug = debug
 		server.on("connection", (socket: any) => {
-			this.emit("connected", new IndieSocketClient(socket))
+			if(debug) console.log("[IndieSocket] Client connected")
+			this.emit("_connected", new IndieSocketClient(socket, debug))
 		})
 	}
 
@@ -15,29 +19,36 @@ export class IndieSocketServer extends EventEmitter {
 export class IndieSocketClient extends EventEmitter {
 
 	socket: any
+	debug: boolean
 
-	constructor(socket: any) {
+	constructor(socket: any, debug: boolean = false) {
 		super()
 		this.socket = socket
+		this.debug = debug
 
-		socket.on("message", (message: string) => {
-			const [name, ...data] = JSON.parse(message)
+		this.socket.on("message", (message: string) => {
+			const [name, data] = JSON.parse(message)
+			if (this.debug) console.log("[IndieSocket] Inbound message: " + name + " with value " + JSON.stringify(data))
 			this.emit(name, data)
+			if(message !== "_*") this.emit("_*", message, data)
 		})
 
-		socket.on("close", () => {
-			this.emit("disconnect")
+		this.socket.on("close", () => {
+			if (this.debug) console.log("[IndieSocket] Client disconnected")
+			this.emit("_disconnect")
 		})
 
-		socket.on("error", (e: Error) => {
-			this.emit("error", e)
+		this.socket.on("error", (e: Error) => {
+			if (this.debug) console.log("[IndieSocket] Error occured: " + e)
+			this.emit("_error", e)
 		})
 	}
 
 	// eslint-ignore-next-line
-	send(name: string, ...data: any) {
+	send(name: string, data: any) {
+		if (this.debug) console.log("[IndieSocket] Outbound message: " + name + " with value " + JSON.stringify(data))
+		this.emit("_outbound", name, data)
 		this.socket.send(JSON.stringify([name, data]))
-		this.emit("outbound", name, data)
 	}
 
 }
