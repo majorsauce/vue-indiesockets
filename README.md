@@ -92,7 +92,7 @@ Vue.use(new IndieSocket(), "ws://localhost:40001", {debug: true, autoReconnect: 
 
 ```
 <template>
-	<div>
+    <div>
         <!-- You can use this.$socket.connected to check if the websocket is currently connected -->
         <p>Connected: {{this.$socket.connected}}</p>
         <p>{{this.message}}</p>
@@ -101,10 +101,10 @@ Vue.use(new IndieSocket(), "ws://localhost:40001", {debug: true, autoReconnect: 
 
 <script>
 export default {
-	data: () => ({
-		message: "",
-	}),
-	// Add the sockets object to your component and add handlers in there
+    data: () => ({
+        message: "",
+    }),
+    // Add the sockets object to your component and add handlers in there
     sockets: {
         // Custom handler called when the server does client.send("hello", "hello client!")
         hello(data) {
