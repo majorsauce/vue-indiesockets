@@ -29,7 +29,7 @@ npm install vue-indiesockets
 #### Server-Side:
 
 
-```
+```js
 // This is specific to the implementation you want to use
 import WebSocket from "ws"
 // Import the Server and Client types
@@ -78,7 +78,7 @@ server.on("_connected", (client: IndieSocketClient) => {
 
 **main.ts**
 
-```
+```js
 // main.ts
 import { IndieSocket } from "vue-indiesockets"
 
@@ -90,7 +90,7 @@ Vue.use(new IndieSocket(), "ws://localhost:40001", {debug: true, autoReconnect: 
 <br>
 **cusom component**
 
-```
+```js
 <template>
     <div>
         <!-- You can use this.$socket.connected to check if the websocket is currently connected -->
