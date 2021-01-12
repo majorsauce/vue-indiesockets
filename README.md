@@ -1,29 +1,33 @@
-# IndieSockets-Plugin for Vue
+# IndieSockets-Plugin for Vue and your Backend
 This plugin is inspired by [vue-socket.io-extended](https://www.npmjs.com/package/vue-socket.io-extended)
 
 
-<br>
 ### About
 
-vue-indiesockets adds WebSocket capabilities to vue directly in vue components.
-It also comes with the fitting backend wrapper for websockets allowing you to integrate both using the same NPM module.
+vue-indiesockets adds WebSocket capabilities to your backend and Vue directly in Vue components.
+It provides a thin wrapper around both client- and serverside WebSocket implementations handling all the logic required to send and receive data in real-time applications. It does not build on top of SocketIO (although it probably could) so there is no failover capability if Websockets are not supported by the client.
 
 On the backend side you have to pass an Websocket instance to the plugin. I developed it using [ws](https://www.npmjs.com/package/ws) but other implementations should work as well. 
 
 <br>
+
 ### Installation
 
 In any node project, not limited to Vue projects
+
 ```
 npm install vue-indiesockets
 ```
 
 <br>
 <br>
+
 ### Usage
 
 <br>
+
 #### Server-Side:
+
 
 ```
 // This is specific to the implementation you want to use
@@ -73,6 +77,7 @@ server.on("_connected", (client: IndieSocketClient) => {
 <br>
 
 **main.ts**
+
 ```
 // main.ts
 import { IndieSocket } from "vue-indiesockets"
@@ -84,9 +89,10 @@ Vue.use(new IndieSocket(), "ws://localhost:40001", {debug: true, autoReconnect: 
 
 <br>
 **cusom component**
+
 ```
 <template>
-	<div>
+    <div>
         <!-- You can use this.$socket.connected to check if the websocket is currently connected -->
         <p>Connected: {{this.$socket.connected}}</p>
         <p>{{this.message}}</p>
@@ -95,18 +101,18 @@ Vue.use(new IndieSocket(), "ws://localhost:40001", {debug: true, autoReconnect: 
 
 <script>
 export default {
-	data: () => ({
-		message: "",
-	}),
-	// Add the sockets object to your component and add handlers in there
+    data: () => ({
+        message: "",
+    }),
+    // Add the sockets object to your component and add handlers in there
     sockets: {
         // Custom handler called when the server does client.send("hello", "hello client!")
-		hello(data) {
-			this.message = data;
+        hello(data) {
+            this.message = data;
             // Send something back to the server
-			this.$socket.send("hallo", "Hello Server!")
-		}
-	}
+            this.$socket.send("hallo", "Hello Server!")
+        }
+    }
 };
 </script>
 ```
