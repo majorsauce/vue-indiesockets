@@ -88,6 +88,7 @@ Vue.use(new IndieSocket(), "ws://localhost:40001", {debug: true, autoReconnect: 
 ```
 
 <br>
+
 **cusom component**
 
 ```js
