@@ -51,12 +51,12 @@ server.on("_connected", (client: IndieSocketClient) => {
     })
 
     // Custom message handler
-	client.on("login", data => console.log("Client sent login: " + data.username))
+    client.on("login", data => console.log("Client sent login: " + data.username))
 
     // Will be called for every outbound message, useful if you want to log the outbound traffic
-	client.on("_outbound", data => {
-		console.log("outbound: " + data)
-	})
+    client.on("_outbound", data => {
+        console.log("outbound: " + data)
+    })
     
     client.on("_error", e => console.error(e))
     
