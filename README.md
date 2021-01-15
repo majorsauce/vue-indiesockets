@@ -13,7 +13,7 @@ On the backend side you have to pass an Websocket instance to the plugin. I deve
 
 ### Installation
 
-In any node project, not limited to Vue projects
+Install on both, server and client
 
 ```
 npm install vue-indiesockets
