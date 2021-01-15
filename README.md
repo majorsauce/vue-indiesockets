@@ -91,7 +91,7 @@ Vue.use(new IndieSocket(), "ws://localhost:40001", {debug: true, autoReconnect: 
 
 **cusom component**
 
-```js
+```html
 <template>
     <div>
         <!-- You can use this.$socket.connected to check if the websocket is currently connected -->
