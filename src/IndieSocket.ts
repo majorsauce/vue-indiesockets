@@ -1,5 +1,3 @@
-export {IndieSocketServer} from "./IndieSocketServer"
-export {IndieSocketClient} from "./IndieSocketServer"
 
 class Socket {
 
@@ -18,6 +16,7 @@ class Socket {
 
 	_init(url: string, options: { debug: boolean, autoReconnect: boolean }) {
 		this.ws = new WebSocket(url)
+		this.options = options
 		this.ws.onopen = () => {
 			if (this.options.debug) console.log("[IndieSocket] Connected to " + url)
 			this.connected = true
@@ -74,7 +73,7 @@ export class IndieSocket {
 					if (typeof this.$options.sockets[key] !== 'function') continue
 					this.$socket.addListener(this, key, this.$options.sockets[key])
 				}
-			}
+			},
 		})
 	}
 

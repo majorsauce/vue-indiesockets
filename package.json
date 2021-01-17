@@ -9,14 +9,17 @@
 	},
 	"keywords": [
 		"WebSocket",
-		"Vue"
+		"Vue",
+		"Live",
+		"Realtime",
+		"Communication"
 	],
 	"author": "major_sauce",
-	"license": "ISC",
-	"dependencies": {
+	"license": "license",
+	"devDependencies": {
+		"vue": "^2.6.12",
+		"@types/node": "^14.14.20",
 		"@types/events": "^3.0.0"
 	},
-	"devDependencies": {
-		"@types/node": "^14.14.20"
-	}
+	"types": "types/index.d.ts"
 }
