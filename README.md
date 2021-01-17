@@ -13,7 +13,7 @@ On the backend side you have to pass an Websocket instance to the plugin. I deve
 
 ### Installation
 
-In any node project, not limited to Vue projects
+Install on both, server and client
 
 ```
 npm install vue-indiesockets
@@ -91,7 +91,7 @@ Vue.use(new IndieSocket(), "ws://localhost:40001", {debug: true, autoReconnect: 
 
 **cusom component**
 
-```js
+```html
 <template>
     <div>
         <!-- You can use this.$socket.connected to check if the websocket is currently connected -->
