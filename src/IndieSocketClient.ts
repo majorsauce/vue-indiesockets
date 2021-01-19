@@ -1,6 +1,5 @@
 import {EventEmitter} from "events"
 
-
 export default class IndieSocketClient extends EventEmitter {
 
 	socket: any

@@ -1,5 +1,3 @@
-export {default as IndieSocketClient} from "./IndieSocketClient"
-export {default as IndieSocketServer} from "./IndieSocketServer"
 import "../types/vue"
 
 class Socket {
@@ -55,7 +53,7 @@ class Socket {
 	}
 
 	// eslint-disable-next-line
-	send(name: string, data: any) {
+	send(name: string, ...data: any[]) {
 		if (this.options.debug) console.log("[IndieSocket] Outbound message: " + name + " with value " + JSON.stringify(data))
 		this.ws?.send(JSON.stringify([name, data]))
 	}
