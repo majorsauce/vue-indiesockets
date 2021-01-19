@@ -1,4 +1,4 @@
-import "../types/vue";
+import "../types/vue"
 export declare class IndieSocket {
     install(Vue: any, url: string, options?: {
         debug: boolean;

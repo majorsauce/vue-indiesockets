@@ -1,4 +1,3 @@
-import "../types/vue"
 
 class Socket {
 
