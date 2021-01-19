@@ -2,7 +2,7 @@
 import _Vue from "vue"
 
 declare class SocketHandler<V> {
-	[id: string]: [this: V, ...args: any[]]
+	[id: string]: (this: V, ...args: any[])
 }
 
 declare module 'vue/types/vue' {
@@ -14,8 +14,8 @@ declare module 'vue/types/vue' {
 }
 
 declare module 'vue/types/options' {
-	interface ComponentOptions<V extends Vue> {
-		sockets?: SocketHandler<V>[]
+	interface ComponentOptions<V extends _Vue> {
+		sockets?: SocketHandler<V>
 	}
 }
 
