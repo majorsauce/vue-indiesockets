@@ -24,10 +24,10 @@ declare module 'vue/types/options' {
 
 declare module "vue-indiesockets" {
 	interface IndieSocketServer {
-		on(event: string | "_connected", listener: (...args: any[]) => void): this;
+		on(event: "_connected" | string, listener: (client: IndieSocketClient) => void): this;
 	}
 	interface IndieSocketClient {
-		on(event: string | "_*" | "_error" | "_disconnect" | "_outbound", listener: (...args: any[]) => void): this;
+		on(event: "_*" | "_error" | "_disconnect" | "_outbound" | string, listener: (...args: any[]) => void): this;
 	}
 }
 
