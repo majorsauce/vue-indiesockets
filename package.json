@@ -1,7 +1,12 @@
 {
 	"name": "vue-indiesockets",
+<<<<<<< HEAD
 	"version": "1.1.18",
 	"description": "A leightweit Websocket-Plugin for vue including the fitting server implementation",
+=======
+	"version": "1.1.20",
+	"description": "A lightweight Websocket-Plugin for vue including the fitting server implementation",
+>>>>>>> 78e7cb7f6f035e4d49363d47db64223f11c0bdca
 	"main": "dist/IndieSocket.js",
 	"module": "dist/IndieSocket.js",
 	"type": "module",
@@ -23,5 +28,8 @@
 		"@types/node": "^14.14.20",
 		"@types/events": "^3.0.0"
 	},
-	"types": "types/IndieSocket.d.ts"
+	"types": "types/index.d.ts",
+	"include": [
+		"types/"
+	]
 }
