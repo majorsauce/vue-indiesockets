@@ -1,8 +1,8 @@
 // Augment vue interface
 import _Vue from "vue"
-export {IndieSocket} from "vue-indiesockets"
-export {IndieSocketServer} from "vue-indiesockets"
-export {IndieSocketClient} from "vue-indiesockets"
+export {IndieSocket} from "./IndieSocket"
+export {IndieSocketServer} from "./IndieSocketServer"
+export {IndieSocketClient} from "./IndieSocketClient"
 
 declare class SocketHandler<V> {
 	[id: string]: (this: V, ...args: any[]) => void
