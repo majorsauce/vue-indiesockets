@@ -2,7 +2,7 @@
 import _Vue from "vue"
 
 declare class SocketHandler<V> {
-	[id: string]: (this: V, ...args: any[])
+	[id: string]: (this: V, ...args: any[]) => void
 }
 
 declare module 'vue/types/vue' {
@@ -19,3 +19,9 @@ declare module 'vue/types/options' {
 	}
 }
 
+// Augment EventEmitter
+declare module "events" {
+	interface EventEmitter {
+		on(type: "_connected", listener: any): this;
+	}
+}

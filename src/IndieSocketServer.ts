@@ -1,7 +1,7 @@
 import { EventEmitter } from "events"
-import IndieSocketClient from "./IndieSocketClient"
+import { IndieSocketClient } from "./IndieSocketClient"
 
-export default class IndieSocketServer extends EventEmitter {
+export class IndieSocketServer extends EventEmitter {
 
 	debug: boolean
 

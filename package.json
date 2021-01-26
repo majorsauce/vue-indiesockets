@@ -23,5 +23,6 @@
 		"@types/node": "^14.14.20",
 		"@types/events": "^3.0.0"
 	},
-	"types": "types/IndieSocket.d.ts"
+	"types": "types/IndieSocket.d.ts",
+	"include": ["types/"]
 }
