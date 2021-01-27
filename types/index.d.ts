@@ -2,6 +2,8 @@
 import _Vue from "vue"
 import { IndieSocketClient } from "./IndieSocketClient"
 export { IndieSocket } from "./IndieSocket"
+export { IndieSocketServer } from "./IndieSocketServer";
+export { IndieSocketClient } from "./IndieSocketClient";
 
 declare class SocketHandler<V> {
 	[id: string]: (this: V, ...args: any[]) => void
