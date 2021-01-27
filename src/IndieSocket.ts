@@ -1,3 +1,5 @@
+export {IndieSocketServer} from "./IndieSocketServer"
+export {IndieSocketClient} from "./IndieSocketClient"
 
 class Socket {
 
