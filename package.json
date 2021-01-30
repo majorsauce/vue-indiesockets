@@ -4,7 +4,6 @@
 	"description": "A lightweight Websocket-Plugin for vue including the fitting server implementation",
 	"main": "dist/IndieSocket.js",
 	"module": "dist/IndieSocket.js",
-	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "https://code.indiecodings.com/major_sauce/vue-indiesockets"
