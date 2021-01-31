@@ -1,12 +1,12 @@
 {
 	"name": "vue-indiesockets",
 	"version": "1.2.0",
-	"description": "A lightweight Websocket-Plugin for vue including the fitting server implementation",
+	"description": "A lightweight Websocket-Plugin for vue.js including the fitting server implementation",
 	"main": "dist/IndieSocket.js",
 	"module": "dist/IndieSocket.js",
 	"repository": {
 		"type": "git",
-		"url": "https://code.indiecodings.com/major_sauce/vue-indiesockets"
+		"url": "https://github.com/majorsauce/vue-indiesockets.git"
 	},
 	"keywords": [
 		"WebSocket",
