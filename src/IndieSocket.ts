@@ -1,5 +1,5 @@
-export {IndieSocketServer} from "./IndieSocketServer"
-export {IndieSocketClient} from "./IndieSocketClient"
+export { IndieSocketServer } from "./IndieSocketServer"
+export { IndieSocketClient } from "./IndieSocketClient"
 
 class Socket {
 
@@ -11,7 +11,7 @@ class Socket {
 
 	constructor(url: string, options: {}) {
 		this.url = url
-		this.options = {...this.options, ...options}
+		this.options = { ...this.options, ...options }
 
 		this._init(url)
 	}
@@ -83,16 +83,21 @@ export class IndieSocket {
 
 	// eslint-disable-next-line
 	install(Vue: any) {
-		Vue.prototype.$socket = new Socket(this.url, this.options)
-		console.log("[IndieSocket] Vue initialization started for " + this.url)
+		try {
+			Vue.prototype.$socket = new Socket(this.url, this.options)
+			console.log("[IndieSocket] Vue initialization started for " + this.url)
 
-		Vue.mixin({
-			created() {
-				this.$options.sockets = this.$options.sockets || {}
-				for (const [key, value] of this.$options.sockets) {
-					if (typeof value === 'function') this.$socket.addListener(this, key, value)
-				}			},
-		})
+			Vue.mixin({
+				created() {
+					this.$options.sockets = this.$options.sockets || {}
+					for (const [key, value] of this.$options.sockets) {
+						if (typeof value === 'function') this.$socket.addListener(this, key, value)
+					}
+				},
+			})
+		} catch (e) {
+			console.log(e)
+		}
 	}
 
 }

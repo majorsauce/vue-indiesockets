@@ -6,14 +6,14 @@ export { IndieSocketServer } from "./IndieSocketServer";
 export { IndieSocketClient } from "./IndieSocketClient";
 
 declare class SocketHandler<V> {
-	_all: (this: V, ...args: any[]) => void
-	_io: (this: V, ...args: any[]) => void
-	_in: (this: V, ...args: any[]) => void
-	_out: (this: V, ...args: any[]) => void
-	_connected: (this: V, ...args: any[]) => void
-	_close: (this: V, ...args: any[]) => void
-	_error: (this: V, ...args: any[]) => void
-	[event: string]: (this: V, ...args: any[]) => void
+	_all: (this: V, ...args: any[]) => void | undefined
+	_io: (this: V, ...args: any[]) => void | undefined
+	_in: (this: V, ...args: any[]) => void | undefined
+	_out: (this: V, ...args: any[]) => void | undefined
+	_connected: (this: V, ...args: any[]) => void | undefined
+	_close: (this: V, ...args: any[]) => void | undefined
+	_error: (this: V, ...args: any[]) => void | undefined
+	[event: string]: (this: V, ...args: any[]) => void | undefined
 }
 
 declare module 'vue/types/vue' {
