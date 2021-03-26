@@ -11,28 +11,34 @@ export class IndieSocketClient extends EventEmitter {
 		this.debug = debug
 
 		this.socket.on("message", (message: string) => {
-			const [name, data] = JSON.parse(message)
-			if (this.debug) console.log("[IndieSocket] Inbound message: " + name + " with value " + JSON.stringify(data))
-			this.emit(name, ...data)
-			if (message !== "_*") this.emit("_*", message, ...data)
+			const [event, data] = JSON.parse(message)
+			if (this.debug) console.log("[IndieSocket] Inbound message: " + event + " with value " + JSON.stringify(data))
+			this.emit(event, ...data)
+			if (event !== "_in") this.emit("_in", event, ...data)
+			if (event !== "_io") this.emit("_in", event, ...data)
+			if (event !== "_all") this.emit("_*", event, ...data)
 		})
 
 		this.socket.on("close", () => {
 			if (this.debug) console.log("[IndieSocket] Client disconnected")
-			this.emit("_disconnect")
+			this.emit("_closed")
+			this.emit("_all")
 		})
 
 		this.socket.on("error", (e: Error) => {
 			if (this.debug) console.log("[IndieSocket] Error occured: " + e)
 			this.emit("_error", e)
+			this.emit("_all", e)
 		})
 	}
 
 	// eslint-ignore-next-line
-	send(name: string, data?: any) {
-		if (this.debug) console.log("[IndieSocket] Outbound message: " + name + " with value " + JSON.stringify(data))
-		this.emit("_outbound", name, data)
-		this.socket.send(JSON.stringify([name, data]))
+	send(event: string, data?: any) {
+		if (this.debug) console.log("[IndieSocket] Outbound message: " + event + " with value " + JSON.stringify(data))
+		this.emit("_out", event, ...data)
+		this.emit("_io", event, ...data)
+		this.emit("_all", event, ...data)
+		this.socket.send(JSON.stringify([event, data]))
 	}
 
 }
