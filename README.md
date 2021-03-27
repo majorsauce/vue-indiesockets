@@ -116,9 +116,10 @@ export default Vue.extend({
 
 The `$socket` object is available in vue on every vue instance. 
 
-| Function | Description |
+| Property | Description |
 |---|---|
-|send(event: string, ...data: any)|Sends data to the other party. Event defines which handler is called, data is what you want to pass*| 
+|connected: boolean|Indicates the connection state| 
+|send(event: string, ...data: any): void|Sends data to the other party. Event defines which handler is called, data is what you want to pass*| 
 
 <br>
 <br>
