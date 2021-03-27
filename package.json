@@ -1,6 +1,6 @@
 {
 	"name": "vue-indiesockets",
-	"version": "1.2.4-dev.13",
+	"version": "1.2.4",
 	"description": "A lightweight Websocket-Plugin for vue.js including the fitting server implementation",
 	"main": "dist/IndieSocket.js",
 	"module": "dist/IndieSocket.js",
