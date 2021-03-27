@@ -101,6 +101,7 @@ export default Vue.extend({
 
 ***Handlers (Vue and NodeJS)***
 <br>
+Handlers are defined in the `sockets` object in every Vue instance (see the example above)
 
 | Socket handler | Description | 
 | ------------- |-------------| 
