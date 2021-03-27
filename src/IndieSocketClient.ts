@@ -15,7 +15,7 @@ export class IndieSocketClient extends EventEmitter {
 			if (this.debug) console.log("[IndieSocket] Inbound message: " + event + " with value " + JSON.stringify(data))
 			this.emit(event, ...data)
 			if (event !== "_in") this.emit("_in", event, ...data)
-			if (event !== "_io") this.emit("_in", event, ...data)
+			if (event !== "_io") this.emit("_io", event, ...data)
 			if (event !== "_all") this.emit("_*", event, ...data)
 		})
 

@@ -74,7 +74,7 @@ class Socket {
 export class IndieSocket {
 
 	url: string
-	options = {}
+	options = {} as any
 
 	constructor(url: string, options?: { debug?: boolean, autoReconnect?: boolean }) {
 		this.url = url
@@ -84,15 +84,18 @@ export class IndieSocket {
 	// eslint-disable-next-line
 	install(Vue: any) {
 		try {
-			Vue.prototype.$socket = new Socket(this.url, this.options)
-			console.log("[IndieSocket] Vue initialization started for " + this.url)
+			const socket = new Socket(this.url, this.options)
+			Vue.prototype.$socket = socket
+			if(socket.options.debug) console.log("[IndieSocket] Vue initialization started for " + this.url)
 
 			Vue.mixin({
 				created() {
-					this.$options.sockets = this.$options.sockets || {}
-					for (const [key, value] of this.$options.sockets) {
-						if (typeof value === 'function') this.$socket.addListener(this, key, value)
-					}
+					const handlers = this.$options.sockets || {}
+					for (const key in handlers) 
+						if (typeof handlers[key] === 'function') {
+							this.$socket.addListener(this, key, handlers[key])
+							if (this.$socket.options.debug) console.log("[IndieSocket] Registered handler " + key)
+						}
 				},
 			})
 		} catch (e) {
