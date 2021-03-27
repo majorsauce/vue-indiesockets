@@ -30,15 +30,13 @@ const server = new IndieSocketServer(new WebSocket.Server({
 	port: 40001
 }), false)
 
+let messages = [] as any[]
+
 server.on("_connected", (client: IndieSocketClient) => {
 
-	client.send("text", "Your cart:")
-	client.send("cart", {total: 15.99, items: ["'1x IndieCodings rocks' shirt", "'2x Just kidding' cup"]})
-
-	client.on("buy", (items) => {
-		client.send("text", `Thank you for your order. Your ${items.length} items will arrive soon!`)
-		client.send("cart", {total: 0, items: []})
-	})
+	client.send("chat", messages)
+	client.on("message", (message) => messages.push({message: message, id: messages.length}))
+	client.on("seen", (messageId) => messages.filter(m => m.id = messageId).forEach(m => m.seen = true))
 
 	client.on("_in", (data) => console.log("From client: " + data))
 
