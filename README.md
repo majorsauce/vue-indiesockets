@@ -1,6 +1,7 @@
 # Websocket wrapper for Vue (Client) and NodeJS (Server)
 🤟 This plugin is inspired by [vue-socket.io-extended](https://www.npmjs.com/package/vue-socket.io-extended)
 
+<br>
 
 ## About
 
@@ -17,7 +18,7 @@ npm install vue-indiesockets
 
 ## Usage
 
-###Server side 
+### Server side 
 
 On the backend side you have to pass an Websocket instance to the plugin. I developed it using [ws](https://www.npmjs.com/package/ws) but other implementations should work as well. 
 
@@ -93,6 +94,9 @@ export default Vue.extend({
 </script>
 
 ```
+
+<br>
+<br>
 
 
 ## ❓ Docs
