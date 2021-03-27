@@ -117,7 +117,8 @@ export default Vue.extend({
 
 <br>
 <br>
-***Socket (Vue)***
+
+***$Socket (Vue)***
 <br>
 The `$socket` object is available in vue on every vue instance. 
 
