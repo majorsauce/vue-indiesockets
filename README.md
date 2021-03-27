@@ -101,7 +101,8 @@ export default Vue.extend({
 
 ## ❓ Docs
 
-*** Handlers (Vue and NodeJS) ***
+***Handlers (Vue and NodeJS)***
+<br>
 
 | Socket handler | Description | 
 | ------------- |-------------| 
@@ -116,8 +117,8 @@ export default Vue.extend({
 
 <br>
 <br>
-*** Socket (Vue) ***
-
+***Socket (Vue)***
+<br>
 The `$socket` object is available in vue on every vue instance. 
 
 | Property | Description |
@@ -129,6 +130,7 @@ The `$socket` object is available in vue on every vue instance.
 <br>
 
 ***IndieSocketClient (NodeJS)***
+<br>
 The `IndieSocketClient` is the counterpart to the $socket object in the Vue version.
 
 | Function | Description |
