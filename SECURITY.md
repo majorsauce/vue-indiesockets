@@ -1,5 +1,7 @@
 # Security Policy
 
+If you have any security concerns please create an issue on Github, I will come back on it as soon as possible
+
 ## Supported Versions
 
 Currently supported versions
@@ -10,6 +12,4 @@ Currently supported versions
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
-
-Please create an issue on github if you find any issues/vulnerabilities
+Please create an issue on Github if you find any issues/vulnerabilities
