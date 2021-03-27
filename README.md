@@ -1,121 +1,137 @@
-# IndieSockets-Plugin for Vue and your Backend
-This plugin is inspired by [vue-socket.io-extended](https://www.npmjs.com/package/vue-socket.io-extended)
+# Websocket wrapper for Vue (Client) and NodeJS (Server)
+🤟 This plugin is inspired by [vue-socket.io-extended](https://www.npmjs.com/package/vue-socket.io-extended)
 
 
-### About
+## About
 
-vue-indiesockets adds WebSocket capabilities to your backend and Vue directly in Vue components.
-It provides a thin wrapper around both client- and serverside WebSocket implementations handling all the logic required to send and receive data in real-time applications. It does not build on top of SocketIO (although it probably could) so there is no failover capability if Websockets are not supported by the client.
+vue-indiesockets adds WebSocket capabilities to your Vue components and your NodeJS backend.
+It provides a thin wrapper around both client- and serverside WebSocket implementations handling all the logic required to send and receive data in real-time applications. It does NOT build on top of SocketIO (although it probably could) so there is no failover capability if Websockets are not supported by the client.
 
-On the backend side you have to pass an Websocket instance to the plugin. I developed it using [ws](https://www.npmjs.com/package/ws) but other implementations should work as well. 
+## Installation
 
-<br>
-
-### Installation
-
-Install on both, server and client
-
+It´s the same package for both, server and client
 ```
 npm install vue-indiesockets
 ```
 
-<br>
-<br>
 
-### Usage
+## Usage
 
-<br>
+###Server side 
 
-#### Server-Side:
-
+On the backend side you have to pass an Websocket instance to the plugin. I developed it using [ws](https://www.npmjs.com/package/ws) but other implementations should work as well. 
 
 ```js
-// This is specific to the implementation you want to use
-import WebSocket from "ws"
-// Import the Server and Client types
 import {IndieSocketServer, IndieSocketClient} from "vue-indiesockets"
+import WebSocket from "ws"
 
-// Initialize IndieSocketServer by passing the Websocket-Server as argument
 const server = new IndieSocketServer(new WebSocket.Server({
 	port: 40001
-}), true)
+}), false)
 
-// Initialize your listeners
 server.on("_connected", (client: IndieSocketClient) => {
-	
-    // Send a message to the client
-    client.send("hello", "Hallo Client!")
-    // You can also send objects (Using JSON.stringify and JSON.parse internally so functions will be lost)
-    client.send("showInfo", {message: "my info message", color: "green", timeout: 1000})
 
-    // Catch all messages using _*. (this gives you the message and the data as parameters)
-	// Does not prevent other handlers to be called, so hello would be called and then _* would be called afterwards with one inbound message
-    client.on("_*", (message, data) => {
-        console.log("Inbound: " + message + " with data " + JSON.stringify(data))
-    })
+	client.send("text", "Your cart:")
+	client.send("cart", {total: 15.99, items: ["'1x IndieCodings rocks' shirt", "'2x Just kidding' cup"]})
 
-    // Custom message handler
-    client.on("login", data => console.log("Client sent login: " + data.username))
+	client.on("buy", (items) => {
+		client.send("text", `Thank you for your order. Your ${items.length} items will arrive soon!`)
+		client.send("cart", {total: 0, items: []})
+	})
 
-    // Will be called for every outbound message, useful if you want to log the outbound traffic
-    client.on("_outbound", data => {
-        console.log("outbound: " + data)
-    })
-    
-    client.on("_error", e => console.error(e))
-    
-    client.on("_disconnect", () => console.log("Client disconnected"))
-    
+	client.on("_in", (data) => console.log("From client: " + data))
+
 })
 ```
 
 <br>
 <br>
 
-#### Client side (vue):
+### Client side (vue):
 
 <br>
 
 **main.ts**
 
 ```js
-// main.ts
-import { IndieSocket } from "vue-indiesockets"
+import {IndieSocket} from "vue-indiesockets"
 
-// Tell Vue to install the plugin.
-// Only has options debug and autoReconnect for now. AutoReconnect defaults to true, debug to false
-Vue.use(new IndieSocket(), "ws://localhost:40001", {debug: true, autoReconnect: true})
+Vue.use(new IndieSocket("ws://localhost:40001", {debug: false, autoReconnect: true}))
 ```
 
 <br>
 
-**cusom component**
+**custom component**
 
 ```html
 <template>
-    <div>
-        <!-- You can use this.$socket.connected to check if the websocket is currently connected -->
-        <p>Connected: {{this.$socket.connected}}</p>
-        <p>{{this.message}}</p>
-    </div>
+	<v-app>
+	
+		<p>Connected: {{ this.$socket.connected }}</p>
+		<p>{{ chat }}</p>
+		<input v-model="chatMessage" />
+		<button v-if="cart.items.length > 0" @click="$socket.send('message', chatMessag)"> Send </button>
+	
+	</v-app>
 </template>
 
-<script>
-export default {
-    data: () => ({
-        message: "",
-    }),
-    // Add the sockets object to your component and add handlers in there
-    sockets: {
-        // Custom handler called when the server does client.send("hello", "hello client!")
-        hello(data) {
-            this.message = data;
-            // Send something back to the server
-            this.$socket.send("hallo", "Hello Server!")
-        }
-    }
-};
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+	data: () => ({
+		chatMessag: "",
+		messages: []
+	}),
+	sockets: {
+		chat(message) {
+			this.$data.chat.push(message);
+			this.$socket.send("seen", message.id)
+		}
+	}
+});
 </script>
+
 ```
 
 
+## ❓ Docs
+
+*** Handlers (Vue and NodeJS) ***
+
+| Socket handler | Description | 
+| ------------- |-------------| 
+| _connected | Websocket connected | 
+| _error | Error occured | 
+| _in | On every inbound message |
+| _out | On every outbound message |
+| _io | On every inbound and outbound message |
+| _all | Handles every event (in, out, error, connected, ect.)  |
+| _close | When WebSocket connection is closed |
+| {customHandlerName} | Your custom handler. Called on appropriate inbound event |
+
+<br>
+<br>
+*** Socket (Vue) ***
+
+The `$socket` object is available in vue on every vue instance. 
+
+| Function | Description |
+|---|---|
+|send(event: string, ...data: any)|Sends data to the other party. Event defines which handler is called, data is what you want to pass*| 
+
+<br>
+<br>
+
+***IndieSocketClient (NodeJS)***
+The `IndieSocketClient` is the counterpart to the $socket object in the Vue version.
+
+| Function | Description |
+|---|---|
+|send(event: string, ...data: any)|Sends data to the other party. Event defines which handler is called, data is what you want to pass*|
+
+<br>
+<br>
+
+## ❗ Appendix
+* The data can be anything. It is converted to JSON and back automatically. Please be aware that functions of an object get lost in this process 
