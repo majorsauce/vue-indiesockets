@@ -69,7 +69,7 @@ Vue.use(new IndieSocket("ws://localhost:40001", {debug: false, autoReconnect: tr
 		<p>Connected: {{ this.$socket.connected }}</p>
 		<p>{{ chat }}</p>
 		<input v-model="chatMessage" />
-		<button v-if="cart.items.length > 0" @click="$socket.send('message', chatMessag)"> Send </button>
+		<button @click="$socket.send('message', chatMessag)" :disabled='chatMessage == ""'> Send </button>
 	
 	</v-app>
 </template>
