@@ -9,7 +9,7 @@ export class IndieSocketServer extends EventEmitter {
 		super()
 		this.debug = debug
 		server.on("connection", (socket: any) => {
-			if(debug) console.log("[IndieSocket] Client connected")
+			if (debug) console.log("[IndieSocket] Client connected")
 			const client = new IndieSocketClient(socket, debug)
 			this.emit("_connected", client)
 			this.emit("_all", client)

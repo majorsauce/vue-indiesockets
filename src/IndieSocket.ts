@@ -86,12 +86,12 @@ export class IndieSocket {
 		try {
 			const socket = new Socket(this.url, this.options)
 			Vue.prototype.$socket = socket
-			if(socket.options.debug) console.log("[IndieSocket] Vue initialization started for " + this.url)
+			if (socket.options.debug) console.log("[IndieSocket] Vue initialization started for " + this.url)
 
 			Vue.mixin({
 				created() {
 					const handlers = this.$options.sockets || {}
-					for (const key in handlers) 
+					for (const key in handlers)
 						if (typeof handlers[key] === 'function') {
 							this.$socket.addListener(this, key, handlers[key])
 							if (this.$socket.options.debug) console.log("[IndieSocket] Registered handler " + key)
