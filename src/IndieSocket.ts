@@ -5,13 +5,22 @@ class Socket {
 
 	ws: WebSocket | undefined = undefined
 	listeners: Map<string, { vm: unknown; callback: Function }[]> = new Map()
-	connected: boolean = false
+	private _connected: boolean = false
 	url: string
+	responsiveStore: any
 	options = { debug: false, autoReconnect: true }
+	public get connected() {
+		return this.responsiveStore.connected
+	}
 
-	constructor(url: string, options: {}) {
+	constructor(vue: any, url: string, options: {}) {
 		this.url = url
 		this.options = { ...this.options, ...options }
+		this.responsiveStore = new vue({
+			data: () => ({
+				connected: false as boolean
+			})
+		})
 
 		this._init(url)
 	}
@@ -22,11 +31,11 @@ class Socket {
 			if (this.options.debug) console.log("[IndieSocket] Connected to " + url)
 			this.listeners.get("_connected")?.forEach((listener: any) => listener.callback.call(listener.vm))
 			this.listeners.get("_all")?.forEach((listener: any) => listener.callback.call(listener.vm))
-			this.connected = true
+			this.responsiveStore.connected = true
 		}
 		this.ws.onclose = () => {
 			if (this.options.debug) console.log("[IndieSocket] Disconnected")
-			this.connected = false
+			this.responsiveStore.connected = false
 			this.listeners.get("_closed")?.forEach((listener: any) => listener.callback.call(listener.vm))
 			this.listeners.get("_all")?.forEach((listener: any) => listener.callback.call(listener.vm))
 			this.reconnect()
@@ -82,13 +91,13 @@ export class IndieSocket {
 	}
 
 	// eslint-disable-next-line
-	install(Vue: any) {
+	install(vue: any) {
 		try {
-			const socket = new Socket(this.url, this.options)
-			Vue.prototype.$socket = socket
+			const socket = new Socket(vue, this.url, this.options)
+			vue.prototype.$socket = socket
 			if (socket.options.debug) console.log("[IndieSocket] Vue initialization started for " + this.url)
 
-			Vue.mixin({
+			vue.mixin({
 				created() {
 					const handlers = this.$options.sockets || {}
 					for (const key in handlers)
