@@ -18,9 +18,9 @@
 	"author": "major_sauce",
 	"license": "license",
 	"devDependencies": {
-		"vue": "^2.6.12",
-		"@types/node": "^14.14.20",
-		"@types/events": "^3.0.0"
+		"@types/events": "^3.0.0",
+		"@types/node": "^14.14.41",
+		"vue": "^2.6.12"
 	},
 	"types": "types/index.d.ts",
 	"include": [
