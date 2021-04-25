@@ -7,5 +7,5 @@ export declare class IndieSocket {
         debug?: boolean;
         autoReconnect?: boolean;
     });
-    install(Vue: any): void;
+    install(vue: any): void;
 }
