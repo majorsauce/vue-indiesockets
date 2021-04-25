@@ -20,6 +20,7 @@ declare module 'vue/types/vue' {
 	interface Vue {
 		$socket: {
 			send(id: string, ...args: any[]): void
+			connected: boolean
 		}
 	}
 }
