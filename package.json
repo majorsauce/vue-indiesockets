@@ -24,6 +24,7 @@
 	},
 	"types": "types/index.d.ts",
 	"include": [
-		"types/"
+		"types/",
+		"dist"
 	]
 }
